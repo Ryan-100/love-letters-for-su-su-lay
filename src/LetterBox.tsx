@@ -50,7 +50,7 @@ export function LetterBox() {
     
     try {
       playSound('heart');
-      createHearts(30);
+      createHearts(10);
       
       // First stage: envelope opening
       await new Promise(resolve => setTimeout(resolve, 800));
@@ -68,7 +68,7 @@ export function LetterBox() {
 
   const handleCloseLetter = () => {
     playSound('close');
-    createHearts(3);
+    createHearts(10);
     setSelectedLetter(null);
     setSelectedMood("");
   };
@@ -134,7 +134,7 @@ export function LetterBox() {
                 onClick={() => {
                   setSelectedMood(mood.id);
                   playSound('select');
-                  createHearts(3);
+                  createHearts(10);
                 }}
                 className={`minecraft-button relative transition-all ${
                   selectedMood === mood.id ? 'bg-pink-400 scale-105' : 'hover:scale-105'
