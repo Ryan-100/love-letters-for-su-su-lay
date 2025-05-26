@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useState, useRef } from "react";
 import { toast } from "sonner";
+import { letters } from "./lib/data";
 
 const moods = [
   { id: "love", emoji: "💝", label: "အချစ်တွေ" },
@@ -8,69 +9,6 @@ const moods = [
   { id: "happiness", emoji: "💫", label: "ပျော်ရွှင်မှုတွေ" },
   { id: "sadness", emoji: "💔", label: "၀မ်းနည်းမှုတွေ" }
 ];
-
-const letters = [
-      {
-        mood: "love",
-        title: "ပိုချစ်ပေးပါ။",
-        content: "ကိုကို့အတွက် စုစုလေးက အမြဲတမ်း ဘေးမှာရှိနေပေးတဲ့ အဖော်ကောင်း တစ်ယောက်ဆိုတာထက်ကို ပိုပါတယ်။ တစ်သက်လုံးစာ လက်တွဲသွားချင်တဲ့ လက်တွဲဖော်ကောင်း တစ်ယောက်၊ တိုင်ပင်လို့ရတဲ့ သူငယ်ချင်းကောင်းတစ်ယောက်၊ နွေးထွေးမှုပါပေးနိုင်တဲ့သူတစ်ယောက်မို့ ကိုကို့ဘက်က တစ်သက်လုံးစာ မဆုံးရှူံးအောင် ကြိုးစားပြီး စုစုလေးအတွက် အကောင်းဆုံးလူ တစ်ယောက်ဖြစ်အောင် နေမှာမို့ စုစုလေးကလည်း ပိုချစ်ပေးပါနော်...",
-        opened: false
-      },
-      {
-        mood: "love",
-        title: "အားဆေးလေးအဖြစ်။",
-        content: "စုစုလေးရဲ့ နေ့ရက်တိုင်းမှာ ကိုကိုအတူတူရှိပြီး ခွန်အားလေးတစ်ခုအဖြစ်ရှိနေချင်တယ်။ ပျော်ရွှင်သည်ဖြစ်စေ၊ ဝမ်းနည်းသည်ဖြစ်စေ၊ အောင်မြင်သည်ဖြစ်စေ၊ ကျရှုံးသည်ဖြစ်စေ စုစုလေးအနားမှာ ကိုကိုအမြဲရှိနေပေးမယ်နော်။ နှစ်ယောက်သား မခွဲပဲ အတူတူ ချစ်ရတဲ့ သူတွေနဲ့ထာဝရ ပျော်ပျော်ရွှင်ရွှင် ကျန်းကျန်းမာမာနဲ့ အတူတူရှိသွားကြမယ်နော်။",
-        opened: false
-      },
-      {
-        mood: "love",
-        title: "လုံခြုံမှုရပ်ဝန်းလေး",
-        content: "If Minecraft had a love potion, I'd craft it just for you. You make my world brighter than glowstone! ✨",
-        opened: false
-      },
-      {
-        mood: "love",
-        title: "Love Note",
-        content: "",
-        opened: false
-      },
-      {
-        mood: "romantic",
-        title: "Heart's Whisper",
-        content: "Like two hearts beating in perfect harmony, we're meant to build our world together. Will you be my player two? 💕",
-        opened: false
-      },
-      {
-        mood: "romantic",
-        title: "Love's Promise",
-        content: "In a world full of blocks, you're the one that completes my build. Let's create something beautiful together! 🏰",
-        opened: false
-      },
-      {
-        mood: "happiness",
-        title: "Playful Heart",
-        content: "Are you a creeper? Because you just blew me away! Want to go mining for diamonds together? 💎",
-        opened: false
-      },
-      {
-        mood: "happiness",
-        title: "Sweet Nothing",
-        content: "If you were a potion, you'd be Potion of Attraction III. Your smile enchants me more than any enchanting table could! ✨",
-        opened: false
-      },
-      {
-        mood: "sadness",
-        title: "Distance Hearts",
-        content: "Even when we're in different biomes, my heart finds its way back to you. Missing you more than my lost diamond pickaxe! 💔",
-        opened: false
-      },
-      {
-        mood: "sadness",
-        title: "Love's Echo",
-        content: "Like a compass always pointing home, my heart always points to you. Can't wait to see you again! 🧭",
-        opened: false
-      }
-    ];
 
 export function LetterBox() {
   const [selectedMood, setSelectedMood] = useState("");
@@ -100,7 +38,7 @@ export function LetterBox() {
     const newHearts = Array.from({ length: count }, (_, i) => ({
       id: Date.now() + i,
       left: Math.random() * 100,
-      emoji: ['💖', '💗', '💓', '💘', '💝'][Math.floor(Math.random() * 5)]
+      emoji: ['💖', '💗', '💓', '💘', '💝', '😍','💕','💞','💓','🤍','💙','🩷','❤️','💌'][Math.floor(Math.random() * 5)]
     }));
     setHearts(newHearts);
     setTimeout(() => setHearts([]), 3000);
@@ -112,7 +50,7 @@ export function LetterBox() {
     
     try {
       playSound('heart');
-      createHearts(5);
+      createHearts(30);
       
       // First stage: envelope opening
       await new Promise(resolve => setTimeout(resolve, 800));
@@ -147,8 +85,7 @@ export function LetterBox() {
             <h3 className="minecraft-text text-2xl mb-4 text-pink-500">
               {selectedLetter.title}
             </h3>
-            <div className="minecraft-text text-lg mb-4">
-              {selectedLetter.content}
+            <div className="minecraft-text text-lg mb-4" dangerouslySetInnerHTML={{__html:selectedLetter.content}}>
             </div>
             <button
               type="button"
@@ -172,7 +109,7 @@ export function LetterBox() {
               style={{
                 left: `${heart.left}%`,
                 bottom: '0',
-                animationDelay: `${Math.random() * 0.5}s`
+                animationDelay: `${Math.random() * 0.1}s`
               }}
             >
               {heart.emoji}
@@ -184,11 +121,11 @@ export function LetterBox() {
   }
 
   return (
-    <div className="mt-8">
+    <div className="mt-8 relative">
       <div>
         <div className="text-center mb-6">
           <h2 className="minecraft-text text-2xl text-pink-500">
-            စုစုလေးနှလုံးသားလေးထဲ ဘာတွေခံစားနေရလဲ🥺
+            ခံစားချက်အလိုက် ဖတ်စေချင်တဲ့ စာလွှာလေးတွေပါ🥺
           </h2>
           <div className="flex flex-wrap gap-4 justify-center mt-4">
             {moods.map(mood => (
@@ -248,14 +185,13 @@ export function LetterBox() {
         )}
         
         {/* Floating hearts */}
-        <div className="fixed top-0 left-0 w-full h-full pointer-events-none">
+        <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
           {hearts.map(heart => (
             <div 
               key={heart.id}
               className="absolute text-xl animate-floatUp"
               style={{
                 left: `${heart.left}%`,
-                bottom: '0',
                 animationDelay: `${Math.random() * 0.5}s`
               }}
             >

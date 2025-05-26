@@ -10,7 +10,17 @@
 .minecraft-bg {
   image-rendering: pixelated;
 }
-
+.minecraft-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAEklEQVQImWNgQAX/GZHEwIACAAwkATF/6h7YAAAAAElFTkSuQmCC') repeat;
+  opacity: 0.1; 
+  z-index: -1;
+}
 .minecraft-title {
   font-family: 'Minecraft', monospace;
   text-shadow: 2px 2px #000;
@@ -125,6 +135,25 @@
   70% { transform: scale(1); }
 }
 
+/* Updated raining hearts animation */
+@keyframes rainHearts {
+  0% { 
+    transform: translateY(-100px) rotate(0deg); 
+    opacity: 0; 
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% { 
+    transform: translateY(100vh) rotate(360deg); 
+    opacity: 0; 
+  }
+}
+
+/* Alternative floating up animation (keep for other uses) */
 @keyframes floatUp {
   0% { transform: translateY(0) rotate(0deg); opacity: 1; }
   100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
@@ -153,7 +182,7 @@
 .heart {
   position: absolute;
   font-size: 20px;
-  animation: floatUp 3s ease-in forwards;
+  animation: rainHearts 4s ease-in forwards;
   opacity: 0;
 }
 
@@ -190,21 +219,17 @@
   100% { transform: scale(1); }
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
-}
-
 .animate-letterOpen {
-  animation: letterOpen 0.5s ease-out;
+  animation: letterOpen 5s ease-out;
 }
 
 .animate-heartBeat {
-  animation: heartBeat 1s ease-in-out;
+  animation: heartBeat 5s ease-in-out;
 }
 
+/* Updated to use raining hearts animation */
 .animate-floatUp {
-  animation: floatUp 5s ease-in forwards;
+  animation: rainHearts 4s ease-in forwards;
 }
 
 /* Minecraft paper enhancements */
@@ -228,17 +253,6 @@
   0% { transform: translateY(100px) scale(0.8); opacity: 0; }
   50% { transform: translateY(0) scale(1.05); opacity: 1; }
   100% { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-@keyframes sparkle {
-  0% { transform: scale(0); opacity: 0; }
-  50% { transform: scale(1.2); opacity: 1; }
-  100% { transform: scale(0); opacity: 0; }
-}
-
-@keyframes floatUp {
-  0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(-100px) rotate(20deg); opacity: 0; }
 }
 
 /* Envelope styles */
@@ -277,12 +291,7 @@
   animation: sparkle 1.5s infinite;
 }
 
-.animate-floatUp {
-  animation: floatUp 2s ease-in forwards;
-}
-
 /* Smooth transitions */
 .minecraft-button, .minecraft-letter {
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
-
