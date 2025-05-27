@@ -1,8 +1,22 @@
+import React from "react";
 import { LetterBox } from "./LetterBox";
-import { Toaster } from "sonner";
+import { toast, Toaster } from "sonner";
 
 export default function App() {
+  React.useEffect(() => {
+    document.body.style.userSelect = 'none';
+    
+    const handleCopy = (e: ClipboardEvent) => {
+      e.preventDefault();
+      toast.info('စုစုလေးအတွက်ရေးထားတဲ့စာတွေမို့ ကူးယူခွင့်မပြုပါ။', {
+        position: 'top-center',
+        duration: 2000,
+      });
+    };
 
+    document.addEventListener('copy', handleCopy);
+    return () => document.removeEventListener('copy', handleCopy);
+  }, []);
   return (
     <div className="minecraft-bg min-h-screen p-4">
       <Toaster />

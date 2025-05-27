@@ -32,6 +32,14 @@ export function LetterBox() {
     } as const;
     audioRef.current.src = sounds[sound as keyof typeof sounds];
     audioRef.current.play().catch(e => console.log("Audio play prevented:", e));
+    
+    // Stop the sound after 3 seconds if it's the 'open' sound
+    if (sound === 'open') {
+      setTimeout(() => {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }, 2000);
+    }
   };
 
   const createHearts = (count: number) => {
@@ -41,7 +49,7 @@ export function LetterBox() {
       emoji: ['💖', '💗', '💓', '💘', '💝', '😍','💕','💞','💓','🤍','💙','🩷','❤️','💌'][Math.floor(Math.random() * 5)]
     }));
     setHearts(newHearts);
-    setTimeout(() => setHearts([]), 3000);
+    setTimeout(() => setHearts([]), 4000);
   };
 
   const handleOpenLetter = async (letter: typeof letters[0]) => {
@@ -50,14 +58,13 @@ export function LetterBox() {
     
     try {
       playSound('heart');
+      await new Promise(resolve => setTimeout(resolve, 800));
       createHearts(10);
       
       // First stage: envelope opening
       await new Promise(resolve => setTimeout(resolve, 800));
       playSound('open');
-      
-      // Second stage: letter unfolding
-      playSound('unfold');
+
       setSelectedLetter(letter);
     } catch (error) {
       toast.error("စာဖွင့်ရန်မအောင်မြင်ပါ");
