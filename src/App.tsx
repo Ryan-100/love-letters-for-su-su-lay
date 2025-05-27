@@ -1,6 +1,7 @@
 import React from "react";
 import { LetterBox } from "./LetterBox";
 import { toast, Toaster } from "sonner";
+import { SoundControl } from "./SoundControl";
 
 export default function App() {
   React.useEffect(() => {
@@ -26,6 +27,7 @@ export default function App() {
         </h1>
         <LetterBox />
       </div>
+      <SoundControl />
     </div>
   );
 }

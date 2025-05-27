@@ -2,6 +2,7 @@
 import { useState, useRef } from "react";
 import { toast } from "sonner";
 import { letters } from "./lib/data";
+import { audioContext } from "./lib/global";
 
 const moods = [
   { id: "love", emoji: "💝", label: "အချစ်တွေ" },
@@ -23,6 +24,8 @@ export function LetterBox() {
   }>(null);
 
   const playSound = (sound: string) => {
+    if (audioContext.isMuted) return;
+    
     const sounds = {
       open: '/sounds/letter-open.mp3',
       close: '/sounds/soft-close.mp3',
